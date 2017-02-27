@@ -1,0 +1,13 @@
+{
+  "groups": [{
+    "name": "schedule",
+    "type": "com.nitin.job.ReminderJobScheduleProperties",
+    "sourceType": "com.nitin.job.ReminderJobScheduleProperties"
+  }],
+  "properties": [{
+    "name": "schedule.jobs",
+    "type": "java.util.List<com.nitin.job.ReminderJobProperties>",
+    "sourceType": "com.nitin.job.ReminderJobScheduleProperties"
+  }],
+  "hints": []
+}

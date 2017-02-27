@@ -1,0 +1,8 @@
+schedule :
+   jobs :
+    -
+      cronExpression : 0/7 * * * * ?
+      dataToWrite : first job
+    -
+      cronExpression : 0/9 * * * * ?
+      dataToWrite : second job
