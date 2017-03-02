@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReminderJobProperties {
-	   @NotNull
-	   @NotEmpty
+
 	   private String cronExpression;
+	   
+	   private String scheduledDate;
 	 
 	   @NotNull
 	   @NotEmpty
@@ -34,4 +35,12 @@ public class ReminderJobProperties {
 	   public void setDataToWrite(String dataToWrite) {
 	      this.dataToWrite = dataToWrite;
 	   }
+
+	public String getScheduledDate() {
+		return scheduledDate;
+	}
+
+	public void setScheduledDate(String scheduledDate) {
+		this.scheduledDate = scheduledDate;
+	}
 }

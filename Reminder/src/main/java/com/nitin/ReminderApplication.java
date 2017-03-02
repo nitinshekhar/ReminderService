@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ImportResource;
 import com.nitin.job.ReminderJobScheduleProperties;
 
 @SpringBootApplication
-@ImportResource({"classpath:bean-context.xml"})	
+@ImportResource({"classpath:bean-context.xml"})
 @EnableConfigurationProperties(value = {ReminderJobScheduleProperties.class})
 
 public class ReminderApplication {

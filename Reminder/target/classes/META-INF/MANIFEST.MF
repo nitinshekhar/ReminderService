@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: Reminder
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: nitinshekhar
+Built-By: ShekhaNi
 Implementation-Vendor-Id: com.nitin.reminder
-Build-Jdk: 1.8.0
+Build-Jdk: 1.8.0_111
 Implementation-URL: http://projects.spring.io/spring-boot/ReminderAppl
  ication/
 Created-By: Maven Integration for Eclipse

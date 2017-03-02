@@ -1,14 +1,12 @@
 package com.nitin.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
-public class ReminderService {
-    private static final Logger log = LoggerFactory.getLogger(ReminderService.class);
+import com.nitin.model.Reminder;
 
-    public void writeDataToLog(String dataToWrite) {
-        log.info("The data is : " + dataToWrite);
-    }
+public interface ReminderService {
+
+	public List<Reminder> findAll();
+	public List<Reminder> findByApplicationName(String applicationName);
+	
 }

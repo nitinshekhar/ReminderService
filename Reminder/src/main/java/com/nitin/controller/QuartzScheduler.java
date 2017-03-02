@@ -1,5 +1,6 @@
 package com.nitin.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -37,7 +38,8 @@ public class QuartzScheduler {
         List<ReminderJobScheduleModel> jobScheduleModels = jobSchedulerModelGenerator.generateModels();
         for (ReminderJobScheduleModel model : jobScheduleModels) {
             try {
-                scheduler.scheduleJob(model.getJobDetail(), model.getTrigger());
+                Date fireDate = scheduler.scheduleJob(model.getJobDetail(), model.getTrigger());
+                System.out.println("job : "+model.getJobDetail().getKey() + "Scheduled will fire at "+fireDate);
             } catch (SchedulerException e) {
                 // log the error
             }

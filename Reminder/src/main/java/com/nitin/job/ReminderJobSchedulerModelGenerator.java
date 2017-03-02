@@ -11,7 +11,11 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.nitin.util.ApplicationUtil;
+
 import static org.quartz.CronScheduleBuilder.cronSchedule;
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
 /**
  * Generates a list of JobScheduleModel from the JobScheduleProperties
@@ -42,7 +46,8 @@ public class ReminderJobSchedulerModelGenerator {
     private ReminderJobScheduleModel generateModelFrom(ReminderJobProperties job, int jobIndex) {
         JobDetail jobDetail = getJobDetailFor(JOB_NAME + jobIndex, GROUP_NAME, job);
  
-        Trigger trigger = getTriggerFor(job.getCronExpression(), jobDetail);
+//        Trigger trigger = getTriggerFor(job.getCronExpression(), jobDetail);
+        Trigger trigger = getTriggerFor(job.getScheduledDate(), jobDetail);
         ReminderJobScheduleModel jobScheduleModel = new ReminderJobScheduleModel(jobDetail, trigger);
         return jobScheduleModel;
     }
@@ -62,11 +67,18 @@ public class ReminderJobSchedulerModelGenerator {
         return jobDataMap;
     }
     private Trigger getTriggerFor(String cronExpression, JobDetail jobDetail) {
+//        Trigger trigger = TriggerBuilder.newTrigger()
+//                .forJob(jobDetail)
+//                .withSchedule(cronSchedule(cronExpression))
+//                .build();
+    	
         Trigger trigger = TriggerBuilder.newTrigger()
                 .forJob(jobDetail)
-                .withSchedule(cronSchedule(cronExpression))
+                .startAt(ApplicationUtil.convertToDate(cronExpression))
+                .withSchedule(simpleSchedule()
+                		.withMisfireHandlingInstructionFireNow())
                 .build();
+        System.out.println("Triger time is : "+trigger.getStartTime().toString());
         return trigger;
     }
-
 }
