@@ -15,9 +15,9 @@ public class ReminderJobProperties {
 	   private String cronExpression;
 	   
 	   private String scheduledDate;
+	   
+	   private String endDate;
 	 
-	   @NotNull
-	   @NotEmpty
 	   private String dataToWrite;
 	 
 	   public String getCronExpression() {
@@ -42,5 +42,13 @@ public class ReminderJobProperties {
 
 	public void setScheduledDate(String scheduledDate) {
 		this.scheduledDate = scheduledDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 }

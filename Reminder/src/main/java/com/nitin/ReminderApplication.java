@@ -17,4 +17,6 @@ public class ReminderApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReminderApplication.class, args);
 	}
+	//@TODO Listener for the JOB< SCHEDULE and TRIGGER
+	//@TODO Read from the table instead of properties
 }

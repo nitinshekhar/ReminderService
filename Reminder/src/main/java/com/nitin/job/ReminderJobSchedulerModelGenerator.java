@@ -3,6 +3,7 @@ package com.nitin.job;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.quartz.CronExpression;
 import org.quartz.JobBuilder;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
@@ -35,6 +36,9 @@ public class ReminderJobSchedulerModelGenerator {
     
     public List<ReminderJobScheduleModel> generateModels() {
         List<ReminderJobProperties> jobs = jobScheduleProperties.getJobs();
+        if (jobs.isEmpty()){
+        	System.out.println("No Jobs to Run");
+        }
         List<ReminderJobScheduleModel> generatedModels = new ArrayList<>();
         for (int i = 0; i < jobs.size(); i++) {
             ReminderJobScheduleModel model = generateModelFrom(jobs.get(i), i);
@@ -47,7 +51,7 @@ public class ReminderJobSchedulerModelGenerator {
         JobDetail jobDetail = getJobDetailFor(JOB_NAME + jobIndex, GROUP_NAME, job);
  
 //        Trigger trigger = getTriggerFor(job.getCronExpression(), jobDetail);
-        Trigger trigger = getTriggerFor(job.getScheduledDate(), jobDetail);
+        Trigger trigger = getTriggerFor(job, jobDetail);
         ReminderJobScheduleModel jobScheduleModel = new ReminderJobScheduleModel(jobDetail, trigger);
         return jobScheduleModel;
     }
@@ -66,19 +70,36 @@ public class ReminderJobSchedulerModelGenerator {
         jobDataMap.put(DATA_TO_WRITE, dataToWrite);
         return jobDataMap;
     }
-    private Trigger getTriggerFor(String cronExpression, JobDetail jobDetail) {
+    private Trigger getTriggerFor(ReminderJobProperties job, JobDetail jobDetail) {
 //        Trigger trigger = TriggerBuilder.newTrigger()
 //                .forJob(jobDetail)
 //                .withSchedule(cronSchedule(cronExpression))
 //                .build();
-    	
-        Trigger trigger = TriggerBuilder.newTrigger()
-                .forJob(jobDetail)
-                .startAt(ApplicationUtil.convertToDate(cronExpression))
-                .withSchedule(simpleSchedule()
-                		.withMisfireHandlingInstructionFireNow())
-                .build();
-        System.out.println("Triger time is : "+trigger.getStartTime().toString());
+    	Trigger trigger = null;
+
+    	if (ApplicationUtil.compareDate(ApplicationUtil.convertToDate(job.getScheduledDate()), ApplicationUtil.convertToDate(job.getEndDate())) < 0){
+    		if (CronExpression.isValidExpression(job.getCronExpression())) {
+    			trigger = TriggerBuilder.newTrigger()
+    					.forJob(jobDetail)
+    					.withSchedule(cronSchedule(job.getCronExpression()))
+    					.startAt(ApplicationUtil.convertToDate(job.getScheduledDate()))
+    					.endAt(ApplicationUtil.convertToDate(job.getEndDate()))
+    					.withDescription("Cron Scheduled")
+    					.build();
+    		} else{
+    			System.out.println("Invalid Cron Expression");
+    			return trigger;
+    		}
+    	} else {
+    		trigger = TriggerBuilder.newTrigger()
+    				.forJob(jobDetail)
+    				.startAt(ApplicationUtil.convertToDate(job.getScheduledDate()))
+    				.withSchedule(simpleSchedule()
+                	.withMisfireHandlingInstructionFireNow())
+    				.withDescription("Single Schedule")
+    				.build();
+    	}
+		System.out.println("Triger time is : "+trigger.getStartTime().toString() +" Scheduled as : "+trigger.getDescription());
         return trigger;
     }
 }

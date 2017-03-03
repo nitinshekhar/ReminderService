@@ -39,4 +39,8 @@ public class ApplicationUtil {
 		System.out.println("Converted Date is : "+ mydate.toString());
 		return mydate;
 	}
+	
+	public static int compareDate(Date startDate, Date endDate) {
+		return startDate.compareTo(endDate);
+	}
 }
