@@ -1,10 +1,9 @@
 package com.nitin.util;
 
-import java.util.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 
 public class ApplicationUtil {
 
@@ -35,8 +34,8 @@ public class ApplicationUtil {
 		} catch (Exception e){
 			//Do something
 		}
-		System.out.println("Before Converted Date is : "+ date);
-		System.out.println("Converted Date is : "+ mydate.toString());
+		System.out.println("Before Conversion Date is : "+ date);
+		System.out.println("After Conversion Date is : "+ mydate.toString());
 		return mydate;
 	}
 	

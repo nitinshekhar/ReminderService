@@ -2,21 +2,21 @@ schedule :
    jobs :
     -
       cronExpression : 0 * * * * * ? 
-      scheduledDate : 2017/03/03 10:57:00
-      endDate : 2017/03/03 10:57:00
+      scheduledDate : 2017/03/04 09:30:00
+      endDate : 2017/03/03 09:30:00
       dataToWrite : first job
     -
-      cronExpression :  0/20 * * * * * ?
-      scheduledDate : 2017/03/03 10:59:00
-      endDate : 2017/03/03 11:13:00
+      cronExpression :  0 0/2 * * * * ?
+      scheduledDate : 2017/03/04 09:29:00
+      endDate : 2017/03/04 11:13:00
       dataToWrite : second job
     -
       cronExpression :  0 0/1 * 1/1 * ? *
-      scheduledDate : 2017/03/03 10:59:00
-      endDate : 2017/03/04 10:59:00
+      scheduledDate : 2017/03/04 09:30:00
+      endDate : 2017/03/05 10:59:00
       dataToWrite : Third job
     -
       cronExpression :  0 0/3 * 1/1 * ? *
-      scheduledDate : 2017/03/03 11:00:00
-      endDate : 2017/03/03 11:03:00
+      scheduledDate : 2017/03/04 11:00:00
+      endDate : 2017/03/04 11:03:00
       dataToWrite : Fourth job      

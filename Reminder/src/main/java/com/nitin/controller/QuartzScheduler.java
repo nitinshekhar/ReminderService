@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.quartz.Trigger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
@@ -20,7 +22,7 @@ import com.nitin.job.ReminderJobSchedulerModelGenerator;
 @Component
 public class QuartzScheduler {
 
-    private SchedulerFactoryBean schedulerFactoryBean;
+    private static SchedulerFactoryBean schedulerFactoryBean;
     private ReminderJobSchedulerModelGenerator jobSchedulerModelGenerator;
 
     @Autowired
@@ -49,5 +51,15 @@ public class QuartzScheduler {
         } catch (SchedulerException e) {
             // log the error
         }
+    }
+    
+    public static void addJobs(JobDetail jobDetail, Trigger trigger){
+    	Scheduler scheduler = schedulerFactoryBean.getScheduler();
+    	try {
+			scheduler.scheduleJob(jobDetail, trigger);
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }
