@@ -7,7 +7,7 @@ import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.nitin.service.ReminderService;
+import com.nitin.service.ReminderServiceImpl;
 
 
 @Component
@@ -15,7 +15,7 @@ import com.nitin.service.ReminderService;
 public class ReminderJob implements Job {
 
     @Autowired
-    private ReminderService reminderService;
+    private ReminderServiceImpl reminderService;
     
 	private String dataToWrite;
 
@@ -27,7 +27,5 @@ public class ReminderJob implements Job {
     public void setDataToWrite(String dataToWrite) {
         this.dataToWrite = dataToWrite;
     }
-
-
 
 }

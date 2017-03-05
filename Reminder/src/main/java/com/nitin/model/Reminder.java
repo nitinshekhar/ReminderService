@@ -1,34 +1,27 @@
 package com.nitin.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="Reminders")
+
 public class Reminder implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long reminderId;
-	@NotNull
 	private String applicationName;
-	@NotNull
+	private Date startDateTime;
+	private Date endDateTime;
+	private String cronExpression;
 	private String returnURL;
-	@NotNull
-	private Date scheduleDateTime;
-	@NotNull
-	private boolean reoccurance;
-
-
 	private String createdBy;
 	private Date createdOn;
 	
@@ -38,41 +31,62 @@ public class Reminder implements Serializable {
 		this.reminderId = id;
 	}
 	
-	public Reminder(String appName, String returnURL, Date scheduleDateTime, boolean reoccurance, String createdBy){
+	public Reminder(String appName, Date startDateTime, Date endDateTime, String cronExpression, String returnURL, String createdBy){
 		this.applicationName = appName;
 		this.returnURL = returnURL;
-		this.scheduleDateTime = scheduleDateTime;
-		this.reoccurance = reoccurance;
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
+		this.cronExpression = cronExpression;
 		this.createdBy = createdBy;
 		this.createdOn =  new Date(Calendar.getInstance().getTime().getTime());
 	}
-	public boolean isReoccurance() {
-		return reoccurance;
-	}
 
-	public void setReoccurance(boolean reoccurance) {
-		this.reoccurance = reoccurance;
-	}	
-	public Long getId() {
+	public long getReminderId() {
 		return reminderId;
 	}
+
+	public void setReminderId(long reminderId) {
+		this.reminderId = reminderId;
+	}
+
 	public String getApplicationName() {
 		return applicationName;
 	}
+
 	public void setApplicationName(String applicationName) {
 		this.applicationName = applicationName;
 	}
+
+	public Date getStartDateTime() {
+		return startDateTime;
+	}
+
+	public void setStartDateTime(Date startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+	public Date getEndDateTime() {
+		return endDateTime;
+	}
+
+	public void setEndDateTime(Date endDateTime) {
+		this.endDateTime = endDateTime;
+	}
+
+	public String getCronExpression() {
+		return cronExpression;
+	}
+
+	public void setCronExpression(String cronExpression) {
+		this.cronExpression = cronExpression;
+	}
+
 	public String getReturnURL() {
 		return returnURL;
 	}
-	public void setReturnURL(String returnUR) {
-		this.returnURL = returnUR;
-	}
-	public Date getScheduleDateTime() {
-		return scheduleDateTime;
-	}
-	public void setScheduleDateTime(Date scheduleDateTime) {
-		this.scheduleDateTime = scheduleDateTime;
+
+	public void setReturnURL(String returnURL) {
+		this.returnURL = returnURL;
 	}
 
 	public String getCreatedBy() {
@@ -90,6 +104,7 @@ public class Reminder implements Serializable {
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
+
 
 
 }
